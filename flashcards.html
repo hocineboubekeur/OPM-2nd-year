@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Lab Platform - Flashcards Deck</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <h1>Python Lab Platform <span>v3.13 Ready</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Definitions</a></li>
+                    <li><a href="flashcards.html" class="active">Flashcards</a></li>
+                    <li><a href="practice.html">Practice IDE</a></li>
+                    <li><a href="free-training.html">Free Training</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="env-status">
+        <div class="spinner" id="status-spinner"></div>
+        <span id="status-text">Mounting Pyodide Python Virtual Machine (WebAssembly)...</span>
+    </div>
+
+    <div class="wrapper">
+        <section id="sec-flashcards">
+            <div class="section-desc">
+                Review key Python structures, NumPy functions, and SymPy syntax in random order. Click a card to flip and inspect the solution.
+            </div>
+
+            <div class="flashcards-layout">
+                <div class="flashcard-wrapper" id="fc-card" onclick="triggerCardFlip()">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-face flashcard-front">
+                            <h4 id="fc-tag">Tag</h4>
+                            <h2 id="fc-term">Loading Term...</h2>
+                            <span class="flashcard-tip">Click card to reveal definition</span>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <h4>Definition & Explanation</h4>
+                            <p id="fc-definition">Loading definition content...</p>
+                            <pre><code id="fc-code">Loading sample snippet...</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls">
+                    <button class="btn-prev" onclick="handleCardNav(-1)">◀ Prev</button>
+                    <button class="btn-shuffle" onclick="handleCardShuffle()">🎲 Shuffle Deck</button>
+                    <button class="btn-next" onclick="handleCardNav(1)">Next ▶</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        Mathematical Programming & Computational Physics Tools Platform | Developed for Academic Worksheets Revision
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

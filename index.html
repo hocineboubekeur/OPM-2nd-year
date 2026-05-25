@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Lab Platform - Definitions Matrix</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <h1>Python Lab Platform <span><v1 class="2"></v1> Ready</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Definitions</a></li>
+                    <li><a href="flashcards.html">Flashcards</a></li>
+                    <li><a href="practice.html">Practice IDE</a></li>
+                    <li><a href="free-training.html">Free Training</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="env-status">
+        <div class="spinner" id="status-spinner"></div>
+        <span id="status-text">Mounting Pyodide Python Virtual Machine (WebAssembly)...</span>
+    </div>
+
+    <div class="wrapper">
+        <section id="sec-definitions">
+            <div class="section-desc">
+                Browse, search, and filter standard built-in mechanisms, data properties, NumPy matrix layers, and SymPy solvers.
+            </div>
+
+            <div class="search-controls">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-bar" placeholder="Type function keywords (e.g., 'zeros', 'inv', 'Rational')..." oninput="applyFilters()">
+                </div>
+                <div>
+                    <select id="chapter-select" class="chapter-filter-select" onchange="applyFilters()">
+                        <option value="all">All Lab Chapters</option>
+                        <option value="lab1">Lab 01: Setup & Basic Operators</option>
+                        <option value="lab2">Lab 02: Variables & Dictionaries</option>
+                        <option value="lab3">Lab 03: Iterations & Control Flows</option>
+                        <option value="lab4">Lab 04: NumPy & Matrix Calculus</option>
+                        <option value="lab6">Lab 06: SymPy Symbolic Analysis</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-definitions" id="definitions-grid"></div>
+        </section>
+    </div>
+
+    <footer>
+        Mathematical Programming & Computational Physics Tools Platform | Developed for Academic Worksheets Revision
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

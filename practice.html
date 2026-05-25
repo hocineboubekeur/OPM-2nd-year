@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Lab Platform - Practice IDE</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <h1>Python Lab Platform <span>v3.13 Ready</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Definitions</a></li>
+                    <li><a href="flashcards.html">Flashcards</a></li>
+                    <li><a href="practice.html" class="active">Practice IDE</a></li>
+                    <li><a href="free-training.html">Free Training</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="env-status">
+        <div class="spinner" id="status-spinner"></div>
+        <span id="status-text">Mounting Pyodide Python Virtual Machine (WebAssembly)...</span>
+    </div>
+
+    <div class="wrapper">
+        <section id="sec-practice">
+            <div class="section-desc">
+                Load practical coding challenges derived from your original lab worksheets. Write your answers and test them with real-time feedback.
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="font-weight: 600; font-size: 0.95rem; margin-right: 0.5rem; display: block; margin-bottom: 0.5rem;">Select Chapter Workout:</label>
+                <select id="practice-chapter-filter" class="chapter-filter-select" onchange="handlePracticeChapterChange()"></select>
+            </div>
+
+            <div class="ide-split-layout">
+                <div class="problem-instructions-panel" id="instructions-container">
+                    <span class="lab-badge" id="instruction-badge">Lab 1</span>
+                    <h3 id="instruction-title">Loading Challenge...</h3>
+                    <div id="instruction-body"></div>
+                    <div class="ideal-result-box">
+                        <h4>Expected Target Output Structure</h4>
+                        <pre id="instruction-ideal">Loading expected output...</pre>
+                    </div>
+                </div>
+
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <div class="editor-title">
+                            <span class="editor-dot"></span>
+                            <span class="editor-dot-2"></span>
+                            <span class="editor-dot-3"></span>
+                            <span style="margin-left: 0.5rem;">practice_lab.py</span>
+                        </div>
+                        <button class="btn-reset" onclick="resetPracticeBoilerplate()">Reset to Starter Code</button>
+                    </div>
+                    
+                    <div class="code-area">
+                        <textarea class="python-editor" id="practice-editor" spellcheck="false"></textarea>
+                    </div>
+
+                    <div class="action-bar">
+                        <span style="color: #6a9955; font-size: 0.85rem; font-family: monospace;"># Press Run to execute with WebAssembly VM</span>
+                        <button class="btn-run" onclick="executePythonRun('practice-editor', 'practice-terminal')">
+                            ▶ Run Code
+                        </button>
+                    </div>
+
+                    <div class="terminal-header">Terminal Console Output</div>
+                    <div class="terminal-box" id="practice-terminal">Terminal ready. Load an exercise and run code!</div>
+                </div>
+            </div>
+            
+            <div class="info-board">
+                💡 <strong>NumPy and SymPy Integration:</strong> Any imports like <code>import numpy as np</code> or <code>import sympy as sp</code> will dynamically load inside Pyodide on first execution.
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        Mathematical Programming & Computational Physics Tools Platform | Developed for Academic Worksheets Revision
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
