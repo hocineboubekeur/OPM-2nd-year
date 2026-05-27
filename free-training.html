@@ -5,22 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Lab Platform - Free Training Sandbox</title>
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <script src="database.js"></script>
+    
+    <script src="main.js"></script>
 </head>
 <body>
 
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <h1>Python Lab Platform <span>v3.13 Ready</span></h1>
+                <h1>Python Lab Platform <span><v1 class="4">v1.4</v1> Ready</span></h1>
             </div>
             <nav>
-                <ul>
-                    <li><a href="index.html">Definitions</a></li>
-                    <li><a href="flashcards.html">Flashcards</a></li>
-                    <li><a href="practice.html">Practice IDE</a></li>
-                    <li><a href="free-training.html" class="active">Free Training</a></li>
-                </ul>
+                
+                    <a href="index.html">Definitions</a>
+                    <a href="flashcards.html">Flashcards</a>
+                    <a href="practice.html">Practice IDE</a>
+                    <a href="free-training.html" class="active">Free Training</a>
+                
             </nav>
         </div>
     </header>
@@ -79,7 +84,22 @@ print("Inverse A:\n", np.linalg.inv(matrix_a))
     </div>
 
     <footer>
-        Mathematical Programming & Computational Physics Tools Platform | Developed for Academic Worksheets Revision
+        <p>© 2026 Created by <strong>NHSM student</strong> | Built for Academic Revision</p>
+        
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+            📚 Coursework content, lab documentation, and worksheet metrics are properties of the respective university department. 
+            <br>
+            Special thanks to the beta testing crew for hunting down bugs , and helping with the design!
+        </p>
+        
+        <p style="margin-top: 0.8rem;">
+            <a href="mailto:hocineboubekeurr@gmail.com?subject=Python%20Lab%20Feedback" 
+               style="display: inline-flex; align-items: center; gap: 0.4rem; color: #ffffff !important; background-color: var(--primary-teal); text-decoration: none; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 20px; font-size: 0.85rem; box-shadow: 0 3px 10px rgba(0,0,0,0.06); transition: transform 0.2s ease, filter 0.2s ease;" 
+               onmouseover="this.style.transform='scale(1.03)'; this.style.filter='brightness(1.15)';" 
+               onmouseout="this.style.transform='scale(1)'; this.style.filter='none';">
+                ✉️ Reach Out & Contact Me
+            </a>
+        </p>
     </footer>
 
     <script src="main.js"></script>

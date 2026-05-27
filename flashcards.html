@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Lab Platform - Flashcards Deck</title>
+    <title>Python Lab Platform - Interactive Flashcards</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <script src="database.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
 
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <h1>Python Lab Platform <span>v3.13 Ready</span></h1>
+                <h1>Python Lab Platform <span>v1.4 Ready</span></h1>
             </div>
             <nav>
-                <ul>
-                    <li><a href="index.html">Definitions</a></li>
-                    <li><a href="flashcards.html" class="active">Flashcards</a></li>
-                    <li><a href="practice.html">Practice IDE</a></li>
-                    <li><a href="free-training.html">Free Training</a></li>
-                </ul>
+                
+                    <a href="index.html">Definitions</a>
+                    <a href="flashcards.html" class="active">Flashcards</a>
+                    <a href="practice.html">Practice IDE</a>
+                    <a href="free-training.html">Free Training</a>
+                
             </nav>
         </div>
     </header>
 
-    <div id="env-status">
-        <div class="spinner" id="status-spinner"></div>
-        <span id="status-text">Mounting Pyodide Python Virtual Machine (WebAssembly)...</span>
-    </div>
 
     <div class="wrapper">
         <section id="sec-flashcards">
@@ -37,21 +35,48 @@
             </div>
 
             <div class="flashcards-layout">
-                <div class="flashcard-wrapper" id="fc-card" onclick="triggerCardFlip()">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-face flashcard-front">
-                            <h4 id="fc-tag">Tag</h4>
-                            <h2 id="fc-term">Loading Term...</h2>
-                            <span class="flashcard-tip">Click card to reveal definition</span>
-                        </div>
-                        <div class="flashcard-face flashcard-back">
-                            <h4>Definition & Explanation</h4>
-                            <p id="fc-definition">Loading definition content...</p>
-                            <pre><code id="fc-code">Loading sample snippet...</code></pre>
-                        </div>
-                    </div>
-                </div>
+                <div class="filter-container">
+    <label for="fc-category-select" style="font-weight: bold; align-self: center;">Study Matrix Filter:</label>
+    <select id="fc-category-select" onchange="handleCategoryChange()">
+        </select>
+</div>
 
+<div class="flashcard-stage">
+    <div id="fc-card" class="flashcard-box" onclick="triggerCardFlip()" tabindex="0" aria-label="Interactive flashcard. Press Spacebar or Enter to flip.">
+        
+        <div class="card-face card-front">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+                <span id="fc-tag" style="font-size: 0.85rem; opacity: 0.7; font-weight: bold;">---</span>
+                <span id="fc-srs-status" class="srs-badge unseen">New</span>
+            </div>
+            <div style="text-align: center; margin: auto;">
+                <h2 id="fc-term" style="font-size: 2rem; margin: 0;">Loading Deck...</h2>
+            </div>
+            <p style="text-align: center; font-size: 0.8rem; opacity: 0.5; margin: 0;">💡 Click card context frame to flip</p>
+        </div>
+
+        <div class="card-face card-back">
+            <div style="width: 100%;">
+                <h4 style="margin: 0 0 8px 0; color: #34a853;">Functional Interpretation:</h4>
+                <p id="fc-definition" style="margin: 0 0 15px 0; line-height: 1.4;">---</p>
+                <h4 style="margin: 0 0 8px 0; color: #4285f4;">Execution Matrix Blueprint:</h4>
+                <pre style="margin: 0; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 6px; overflow-x: auto;"><code id="fc-code">---</code></pre>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center; gap: 10px; margin-top: 15px;">
+    <button class="theme-toggle-btn" onclick="handleCardNav(-1)">⬅️ Previous</button>
+    <button class="theme-toggle-btn" onclick="handleCardShuffle()">🔀 Reshuffle</button>
+    <button class="theme-toggle-btn" onclick="handleCardNav(1)">Next ➡️</button>
+</div>
+
+<div class="srs-actions">
+    <button class="srs-btn btn-wrong" onclick="event.stopPropagation(); handleSRSScore(false);">❌ Don't Know (Review Later)</button>
+    <button class="srs-btn btn-correct" onclick="event.stopPropagation(); handleSRSScore(true);">✅ I Know This (Mastered)</button>
+</div>
                 <div class="flashcard-controls">
                     <button class="btn-prev" onclick="handleCardNav(-1)">◀ Prev</button>
                     <button class="btn-shuffle" onclick="handleCardShuffle()">🎲 Shuffle Deck</button>
@@ -60,9 +85,37 @@
             </div>
         </section>
     </div>
-
+<div class="custom-card-creator" style="background: var(--pure-white); padding: 2rem; border-radius: 12px; max-width: 600px; margin: 2rem auto; border: 1px solid var(--card-border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: background-color 0.3s ease, border-color 0.3s ease;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem; color: var(--deep-blue);">➕ Create Your Own Flashcard</h3>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <input type="text" id="custom-name" placeholder="Enter Python Function (e.g., np.linspace)" style="padding: 0.75rem; border: 1px solid var(--card-border); border-radius: 8px; background-color: var(--bg-body); color: var(--text-main); font-size: 0.95rem; outline: none;">
+        
+        <textarea id="custom-desc" placeholder="Enter card explanation definition summary description..." style="padding: 0.75rem; border: 1px solid var(--card-border); border-radius: 8px; background-color: var(--bg-body); color: var(--text-main); font-size: 0.95rem; min-height: 90px; resize: vertical; outline: none;"></textarea>
+        
+        <textarea id="custom-code" placeholder="Enter clean syntax example block blueprint code..." style="padding: 0.75rem; border: 1px solid var(--card-border); border-radius: 8px; background-color: var(--terminal-bg); color: var(--terminal-text); font-family: 'Consolas', monospace; font-size: 0.9rem; min-height: 100px; resize: vertical; outline: none;"></textarea>
+        
+        <button onclick="createNewFlashcardSubmission()" style="background: #34a853; color: #ffffff !important; padding: 0.85rem; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.background='#256f45'" onmouseout="this.style.background='#34a853'">
+            💾 Save Custom Study Card
+        </button>
+    </div>
+</div>
     <footer>
-        Mathematical Programming & Computational Physics Tools Platform | Developed for Academic Worksheets Revision
+        <p>© 2026 Created by <strong>NHSM student</strong> | Built for Academic Revision</p>
+        
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+            📚 Coursework content, lab documentation, and worksheet metrics are properties of the respective university department. 
+            <br>
+            Special thanks to the beta testing crew for hunting down bugs , and helping with the design!
+        </p>
+        
+        <p style="margin-top: 0.8rem;">
+            <a href="mailto:hocineboubekeurr@gmail.com?subject=Python%20Lab%20Feedback" 
+               style="display: inline-flex; align-items: center; gap: 0.4rem; color: #ffffff !important; background-color: var(--primary-teal); text-decoration: none; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 20px; font-size: 0.85rem; box-shadow: 0 3px 10px rgba(0,0,0,0.06); transition: transform 0.2s ease, filter 0.2s ease;" 
+               onmouseover="this.style.transform='scale(1.03)'; this.style.filter='brightness(1.15)';" 
+               onmouseout="this.style.transform='scale(1)'; this.style.filter='none';">
+                ✉️ Reach Out & Contact Me
+            </a>
+        </p>
     </footer>
 
     <script src="main.js"></script>
