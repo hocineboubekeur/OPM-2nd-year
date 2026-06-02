@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Lab Platform – interactive definitions, flashcards, and practice IDE for NumPy, SymPy, and Matplotlib.">
+    <title>Python Lab Platform - Definitions Matrix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Instant theme load to prevent flash -->
+    <script>if(localStorage.getItem('opm-app-theme')==='night')document.body.classList.add('night-mode');</script>
+
+    <!-- ========== HEADER & FOOTER WILL BE INJECTED BY components.js ========== -->
+
+    <!-- ========== ENVIRONMENT STATUS (only for pages with Pyodide) – not needed here ========== -->
+
+    <div class="wrapper">
+        <section id="sec-definitions">
+            <div class="section-desc">
+                Browse, search, and filter standard built‑in mechanisms, data properties, NumPy matrix layers, and SymPy solvers.
+            </div>
+
+            <!-- ========== SEARCH & FILTER CONTROLS ========== -->
+            <div class="search-controls">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-bar"
+                           placeholder="Type function keywords (e.g., 'zeros', 'inv', 'Rational')..."
+                           oninput="applyFilters()">
+                    <!-- Search history dropdown (populated by JS) -->
+                    <div id="search-history" class="search-history-dropdown"></div>
+                </div>
+                <div>
+                    <select id="chapter-select" class="chapter-filter-select" onchange="applyFilters()">
+                        <option value="all">All Lab Chapters</option>
+                        <option value="lab1">Lab 01: Setup &amp; Basic Operators</option>
+                        <option value="lab2">Lab 02: Variables &amp; Dictionaries</option>
+                        <option value="lab2b">Lab 02b: Variables &amp; Data Types</option>
+                        <option value="lab3">Lab 03: Iterations &amp; Control Flows</option>
+                        <option value="lab4">Lab 04: NumPy &amp; Matrix Calculus</option>
+                        <option value="lab5">Lab 05: Matplotlib</option>
+                        <option value="lab6">Lab 06: SymPy Symbolic Analysis</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ========== DEFINITIONS GRID ========== -->
+            <div class="grid-definitions" id="definitions-grid"></div>
+        </section>
+    </div>
+
+    <!-- ========== KEYBOARD SHORTCUT CHEAT SHEET MODAL ========== -->
+    <div id="kbd-modal" class="kbd-modal-overlay">
+        <div class="kbd-modal-content">
+            <div class="kbd-modal-header">
+                <h2>⌨ Keyboard Shortcuts</h2>
+                <button class="kbd-modal-close" onclick="closeKbdModal()">&times;</button>
+            </div>
+            <ul class="kbd-list">
+                <li><kbd>?</kbd> – Show this help</li>
+                <li><kbd>←</kbd><kbd>→</kbd> – Navigate flashcards</li>
+                <li><kbd>Space</kbd> / <kbd>Enter</kbd> – Flip flashcard</li>
+                <li><kbd>Esc</kbd> – Close modals</li>
+                <li><kbd>Ctrl</kbd> + <kbd>F</kbd> – Focus search (definitions)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="components.js"></script>
+    <script src="database.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

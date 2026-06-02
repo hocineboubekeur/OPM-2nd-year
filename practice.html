@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Lab Platform – Practice coding challenges with real‑time Pyodide feedback.">
+    <title>Python Lab Platform - Interactive IDE Sandbox</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+    <script>if(localStorage.getItem('opm-app-theme')==='night')document.body.classList.add('night-mode');</script>
+
+    <!-- Header & footer injected by components.js -->
+
+    <!-- Environment status banner -->
+    <div id="env-status">
+        <div class="spinner" id="status-spinner"></div>
+        <span id="status-text">Mounting Pyodide Python Virtual Machine (WebAssembly)...</span>
+    </div>
+
+    <div class="wrapper">
+        <section id="sec-practice">
+            <div class="section-desc">
+                Load practical coding challenges derived from your original lab worksheets.
+                Write your answers and test them with real-time feedback.
+            </div>
+
+            <!-- Controls: chapter selector + feedback mode -->
+            <div class="practice-controls-bar">
+                <div class="practice-controls-group">
+                    <label class="practice-controls-label">Select Chapter Workout:</label>
+                    <select id="practice-chapter-filter"
+                            class="chapter-filter-select"
+                            onchange="handlePracticeChapterChange()"></select>
+                </div>
+                <div class="practice-controls-group">
+                    <label class="practice-controls-label">Feedback Mode Configuration:</label>
+                    <select id="practice-feedback-mode"
+                            class="chapter-filter-select"
+                            onchange="handleFeedbackModeChange()">
+                        <option value="instant">⚡ Instant Feedback (Auto-Verify on Run)</option>
+                        <option value="deferred">⏳ Deferred Feedback (Review All at End)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Progress card -->
+            <div class="practice-progress-card">
+                <div class="practice-progress-header">
+                    <span class="practice-progress-label">🏆 Overall Laboratory Completion Metrics</span>
+                    <span id="practice-progress-badge">0%</span>
+                </div>
+                <div class="practice-progress-track">
+                    <div id="practice-progress-fill"></div>
+                </div>
+                <div id="practice-progress-text">0 of 0 exercises completed successfully.</div>
+            </div>
+
+            <!-- IDE split layout -->
+            <div class="ide-split-layout">
+
+                <!-- Left: problem instructions -->
+                <div class="problem-instructions-panel" id="instructions-container">
+                    <span class="lab-badge" id="instruction-badge">Lab 1</span>
+                    <h3 id="instruction-title">Loading Challenge...</h3>
+                    <div id="instruction-body"></div>
+                    <div class="ideal-result-box">
+                        <h4>Expected Target Output Structure</h4>
+                        <pre id="instruction-ideal">Loading expected output...</pre>
+                    </div>
+                </div>
+
+                <!-- Right: editor + terminal + plot -->
+                <div class="editor-container">
+
+                    <!-- Editor title bar -->
+                    <div class="editor-header">
+                        <div class="editor-title">
+                            <span class="editor-dot"></span>
+                            <span class="editor-dot-2"></span>
+                            <span class="editor-dot-3"></span>
+                            <span class="editor-filename">practice_lab.py</span>
+                        </div>
+                        <button class="btn-reset" onclick="resetPracticeBoilerplate()">Reset to Starter Code</button>
+                    </div>
+
+                    <!-- Code editor -->
+                    <div class="code-area">
+                        <textarea class="python-editor" id="practice-editor" spellcheck="false"></textarea>
+                    </div>
+
+                    <!-- Action bar -->
+                    <div class="action-bar">
+                        <span class="editor-hint-code"># Press Run to execute with WebAssembly VM</span>
+                        <div class="responsive-btn-group">
+                            <button class="btn-run"
+                                    onclick="executePythonRun('practice-editor', 'practice-terminal')">
+                                ▶ Run Code
+                            </button>
+                            <button id="btn-verify-challenge"
+                                    class="btn-verify"
+                                    onclick="handleManualVerify()">
+                                ✔ Verify Answer
+                            </button>
+                            <button id="btn-review-scorecard"
+                                    class="btn-scorecard"
+                                    onclick="openDeferredScorecardModal()">
+                                📊 Review Summary Scorecard
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Terminal output -->
+                    <div class="terminal-header">🖥️ Terminal Console</div>
+                    <div id="practice-terminal" class="terminal-box">
+                        Console ready. Load exercise objectives and execute code!
+                    </div>
+
+                    <!-- Matplotlib plot output (hidden until plot generated) -->
+                    <div id="plot-output-container" class="plot-output-container"></div>
+
+                </div><!-- /.editor-container -->
+            </div><!-- /.ide-split-layout -->
+
+            <div class="info-board">
+                💡 <strong>NumPy and SymPy Integration:</strong>
+                Imports like <code>import numpy as np</code> or <code>import sympy as sp</code>
+                will dynamically load inside Pyodide on first execution.
+            </div>
+
+            <!-- Scorecard modal -->
+            <div id="practice-scorecard-modal">
+                <div class="scorecard-panel">
+                    <div class="scorecard-panel-header">
+                        <h3>📋 Performance Report Card &amp; Solutions Audit</h3>
+                        <button class="scorecard-close-btn"
+                                onclick="closeDeferredScorecardModal()"
+                                aria-label="Close">&times;</button>
+                    </div>
+                    <div id="scorecard-modal-content"></div>
+                    <div class="scorecard-panel-footer">
+                        <button class="btn-close-report"
+                                onclick="closeDeferredScorecardModal()">Close Report</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="components.js"></script>
+    <script src="database.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

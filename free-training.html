@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Lab Platform – Free training sandbox for custom Python, NumPy, and SymPy scripts.">
+    <title>Python Lab Platform - Free Training Sandbox</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+    <script>if(localStorage.getItem('opm-app-theme')==='night')document.body.classList.add('night-mode');</script>
+
+    <!-- Header & footer injected by components.js -->
+
+    <!-- Environment status banner -->
+    <div id="env-status">
+        <div class="spinner" id="status-spinner"></div>
+        <span id="status-text">Mounting Pyodide Python Virtual Machine (WebAssembly)...</span>
+    </div>
+
+    <div class="wrapper">
+        <section id="sec-free-training">
+            <div class="section-desc">
+                An open-ended sandbox to test any mathematical modeling, bisection algorithms,
+                NumPy arrays, or custom matrix computations.
+            </div>
+
+            <div class="editor-container">
+
+                <!-- Editor title bar -->
+                <div class="editor-header">
+                    <div class="editor-title">
+                        <div class="editor-dots">
+                            <span class="editor-dot"></span>
+                            <span class="editor-dot-2"></span>
+                            <span class="editor-dot-3"></span>
+                        </div>
+                        <span class="editor-filename">sandbox.py</span>
+                    </div>
+                    <button class="btn-reset" onclick="resetSandboxCode()">Clear Sandbox</button>
+                </div>
+
+                <!-- Code editor -->
+                <div class="code-area">
+                    <textarea class="python-editor" id="sandbox-editor" spellcheck="false"># Dynamic Environment Playground
+import numpy as np
+import sympy as sp
+
+print("--- Python Sandbox Environment Ready ---")
+print("NumPy version:", np.__version__)
+print("SymPy version:", sp.__version__)
+
+# Write your algorithms or matrices below:
+matrix_a = np.array([[2, 4], [1, 3]])
+print("\nMatrix A:\n", matrix_a)
+print("Inverse A:\n", np.linalg.inv(matrix_a))
+</textarea>
+                </div>
+
+                <!-- Run bar -->
+                <div class="action-bar">
+                    <span class="editor-hint">Write custom scripts. Output prints instantly below.</span>
+                    <button class="btn-run" onclick="executePythonRun('sandbox-editor', 'sandbox-terminal')">
+                        ▶ Run Code
+                    </button>
+                </div>
+
+                <!-- Terminal output -->
+                <div class="terminal-header">Terminal Console Output</div>
+                <div class="terminal-box" id="sandbox-terminal">Terminal ready. Write Python code and hit run!</div>
+
+                <!-- Matplotlib plot output (hidden until a plot is generated) -->
+                <div id="plot-output-container" class="plot-output-container"></div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="components.js"></script>
+    <script src="database.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

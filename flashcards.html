@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Lab Platform – Interactive flashcards for NumPy, SymPy, and Python built‑ins.">
+    <title>Python Lab Platform - Interactive Flashcards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>if(localStorage.getItem('opm-app-theme')==='night')document.body.classList.add('night-mode');</script>
+
+    <!-- Header & footer injected by components.js -->
+
+    <div class="wrapper">
+        <section id="sec-flashcards">
+            <div class="section-desc">
+                Review key Python structures, NumPy functions, and SymPy syntax in random order.
+                Click a card to flip and inspect the solution.
+            </div>
+
+            <div class="flashcards-layout">
+
+                <!-- Category Filter -->
+                <div class="filter-container">
+                    <label for="fc-category-select" class="practice-controls-label">Study Matrix Filter:</label>
+                    <select id="fc-category-select" onchange="handleCategoryChange()"></select>
+                </div>
+
+                <!-- Flashcard Stage -->
+                <div class="flashcard-stage">
+                    <div id="fc-card" class="flashcard-box"
+                         onclick="triggerCardFlip()" tabindex="0"
+                         aria-label="Interactive flashcard. Press Spacebar or Enter to flip.">
+
+                        <!-- Front face -->
+                        <div class="card-face card-front">
+                            <div class="card-front-header">
+                                <span id="fc-tag">---</span>
+                                <span id="fc-srs-status" class="srs-badge unseen">New</span>
+                            </div>
+                            <div class="card-front-body">
+                                <h2 id="fc-term">Loading Deck...</h2>
+                            </div>
+                            <p class="card-flip-hint">💡 Click card to flip</p>
+                        </div>
+
+                        <!-- Back face -->
+                        <div class="card-face card-back">
+                            <div class="card-back-inner">
+                                <h4 class="card-interpretation-title">Functional Interpretation:</h4>
+                                <p id="fc-definition">---</p>
+                                <h4 class="card-code-title">Execution Matrix Blueprint:</h4>
+                                <pre><code id="fc-code">---</code></pre>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SRS Rating Buttons -->
+                <div class="srs-actions">
+                    <button class="srs-btn btn-wrong"
+                            onclick="event.stopPropagation(); handleSRSScore(false);">
+                        ❌ Don't Know (Review Later)
+                    </button>
+                    <button class="srs-btn btn-correct"
+                            onclick="event.stopPropagation(); handleSRSScore(true);">
+                        ✅ I Know This (Mastered)
+                    </button>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flashcard-controls">
+                    <button class="btn-prev" onclick="handleCardNav(-1)">◀ Prev</button>
+                    <button class="btn-shuffle" onclick="handleCardShuffle()">🎲 Shuffle Deck</button>
+                    <button class="btn-next" onclick="handleCardNav(1)">Next ▶</button>
+                </div>
+
+            </div><!-- /.flashcards-layout -->
+        </section>
+    </div>
+
+    <!-- Custom Card Creator -->
+    <div class="custom-card-creator">
+        <h3>➕ Create Your Own Flashcard</h3>
+        <div class="custom-card-form">
+            <input type="text" id="custom-name"
+                   class="custom-card-input"
+                   placeholder="Enter Python Function (e.g., np.linspace)">
+
+            <textarea id="custom-desc"
+                      class="custom-card-textarea"
+                      placeholder="Enter card explanation / definition..."></textarea>
+
+            <textarea id="custom-code"
+                      class="custom-card-code"
+                      placeholder="Enter syntax example code..."></textarea>
+
+            <button class="btn-save-card" onclick="createNewFlashcardSubmission()">
+                💾 Save Custom Study Card
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="components.js"></script>
+    <script src="database.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Lab Platform – Browser-based Matplotlib visualization lab with live plotting.">
+    <title>Python Lab Platform - Visualization Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+    <!-- Theme flash prevention -->
+    <script>if(localStorage.getItem('opm-app-theme')==='night')document.body.classList.add('night-mode');</script>
+
+    <!-- Header & footer will be injected by components.js -->
+
+    <!-- Environment status banner -->
+    <div id="env-status">
+        <div class="spinner" id="status-spinner"></div>
+        <span id="status-text">Mounting Pyodide Virtual Machine...</span>
+    </div>
+
+    <div class="wrapper">
+        <section id="sec-visualization">
+            <div class="section-desc">
+                Experiment with Matplotlib directly in the browser. Select a pre‑built example, modify the code, and run it to see the graph appear below.
+            </div>
+
+            <!-- Example selector -->
+            <div class="practice-controls-bar">
+                <div class="practice-controls-group">
+                    <label class="practice-controls-label">📊 Pre‑built Examples:</label>
+                    <select id="plot-example-select" class="chapter-filter-select"></select>
+                </div>
+                <div class="practice-controls-group">
+                    <label class="practice-controls-label">⚙️ Actions:</label>
+                    <button class="btn-reset" onclick="resetPlotEditor()" style="align-self: flex-start;">↺ Reset Example</button>
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <!-- Editor title bar -->
+                <div class="editor-header">
+                    <div class="editor-title">
+                        <div class="editor-dots">
+                            <span class="editor-dot"></span>
+                            <span class="editor-dot-2"></span>
+                            <span class="editor-dot-3"></span>
+                        </div>
+                        <span class="editor-filename">plot_lab.py</span>
+                    </div>
+                </div>
+
+                <!-- Code editor -->
+                <textarea class="python-editor" id="plot-editor" spellcheck="false"></textarea>
+
+                <!-- Action bar -->
+                <div class="action-bar">
+                    <span class="editor-hint">Edit the script above and press Run. The plot appears below.</span>
+                    <button class="btn-run" onclick="executePythonRun('plot-editor', 'plot-terminal')">▶ Run &amp; Plot</button>
+                </div>
+
+                <!-- Terminal output -->
+                <div class="terminal-header">Terminal Output</div>
+                <div id="plot-terminal" class="terminal-box">Console ready. Select an example and run it.</div>
+
+                <!-- Plot output container (hidden until plot generated) -->
+                <div id="plot-output-container" class="plot-output-container"></div>
+            </div>
+
+            <div class="info-board">
+                💡 <strong>Pro tip:</strong> Modify the examples to explore different datasets and plot styles.
+                All standard <code>matplotlib</code> commands work inside the browser-based Python 3.13 environment.
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="components.js"></script>
+    <script src="database.js"></script>
+    <script src="plot-examples.js"></script>
+    <script src="main.js"></script>
+
+    <!-- Page-specific initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const select = document.getElementById('plot-example-select');
+            if (select && typeof plotExamples !== 'undefined') {
+                plotExamples.forEach((ex, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = ex.name;
+                    select.appendChild(opt);
+                });
+                select.addEventListener('change', () => {
+                    const idx = select.value;
+                    document.getElementById('plot-editor').value = plotExamples[idx].code;
+                });
+                // Load the first example
+                if (plotExamples.length > 0) {
+                    document.getElementById('plot-editor').value = plotExamples[0].code;
+                }
+            }
+        });
+
+        function resetPlotEditor() {
+            const select = document.getElementById('plot-example-select');
+            if (select && typeof plotExamples !== 'undefined') {
+                select.dispatchEvent(new Event('change'));
+            } else {
+                document.getElementById('plot-editor').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
