@@ -3260,5 +3260,83 @@ dates = data[:, :3]
 # Your code here
 `,
         expected: "16.74"
+    },
+        {
+        id: "p_lab5b_1_try_except",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        title: "1. Catch Division by Zero",
+        badge: "Lab 05b",
+        instructions: `<p>Complete the code so that if <strong>b</strong> is zero, the program prints <strong>"Error caught"</strong> instead of crashing. Use a <code>try/except</code> block.</p>`,
+        starter: `a = 10
+b = 0
+
+# Your code here`,
+        expected: "Error caught"
+    },
+    {
+        id: "p_lab5b_2_multiple_exceptions",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        title: "2. Handle ValueError and IndexError",
+        badge: "Lab 05b",
+        instructions: `<p>Given <code>a = "hello"</code> and <code>e = [1, 2, 3]</code>, write a single <code>try</code> block that:</p>
+<ol>
+  <li>Converts <code>a</code> to an integer</li>
+  <li>Accesses <code>e[5]</code></li>
+</ol>
+<p>If a <strong>ValueError</strong> occurs, print <strong>"ValueError"</strong>. If an <strong>IndexError</strong> occurs, print <strong>"IndexError"</strong>. (Only one of these will actually happen – you still need both <code>except</code> blocks.)</p>`,
+        starter: `a = "hello"
+e = [1, 2, 3]
+
+# Your code here`,
+        expected: "ValueError"
+    },
+    {
+        id: "p_lab5b_3_else_finally",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        title: "3. else and finally Blocks",
+        badge: "Lab 05b",
+        instructions: `<p>Write a <code>try/except/else/finally</code> block that divides <strong>10 by 2</strong>. Print the result if successful, and always print <strong>"Done"</strong> in the <code>finally</code> block. The expected output is:</p>
+<pre>Success
+5.0
+Done</pre>
+<p>Use <code>print("Success")</code> in the <code>else</code> block, then print the result, and <code>print("Done")</code> in <code>finally</code>.</p>`,
+        starter: `a = 10
+b = 2
+
+# Your code here`,
+        expected: "Success\n5.0\nDone"
+    },
+    {
+        id: "p_lab5b_4_raise",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        title: "4. Raise a Custom Error",
+        badge: "Lab 05b",
+        instructions: `<p>Define a function <code>validate_age(age)</code> that raises a <strong>ValueError</strong> with the message <strong>"negative age is not allowed"</strong> if <code>age</code> is less than 0. Otherwise, return <strong>True</strong>.</p>
+<p>Then, in the main code, try to validate the age <strong>-5</strong>. If an error is raised, print the exception message (the text inside the ValueError).</p>`,
+        starter: `# Your code here
+def validate_age(age):
+    `,
+        expected: "negative age is not allowed"
+    },
+    {
+        id: "p_lab5b_5_loop_safe_division",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        title: "5. Safe Division in a Loop",
+        badge: "Lab 05b",
+        instructions: `<p>You have a list <code>numbers = [10, 0, 5]</code>. Write a loop that divides <strong>100 by each number</strong>. If a <strong>ZeroDivisionError</strong> occurs, print <strong>"Cannot divide by zero"</strong>. Otherwise, print the result.</p>
+<p>Expected output:</p>
+<pre>10.0
+Cannot divide by zero
+20.0</pre>
+<p>Use a <code>for</code> loop and a <code>try/except</code> inside it.</p>`,
+        starter: `numbers = [10, 0, 5]
+
+# Your code here`,
+        expected: "10.0\nCannot divide by zero\n20.0"
     }
 ];
