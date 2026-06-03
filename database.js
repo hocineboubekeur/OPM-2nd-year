@@ -30,6 +30,110 @@ const definitionDb = [
         tags: ["io", "input"],
         difficulty: "beginner"
     },
+        // --- NEW: Lab 05b: Exception Handling Basics ---
+    {
+        id: "python-try-except",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "try / except",
+        desc: `Used to handle runtime errors gracefully. The program attempts to execute the code in the 'try' block, and if a specified error occurs, it catches it and runs the 'except' block instead of crashing.`,
+        example: `try:
+    result = 9 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")`,
+        tags: ["exceptions", "error handling", "try"],
+        difficulty: "beginner"
+    },
+    {
+        id: "python-multiple-exceptions",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "Multiple except blocks",
+        desc: `A single 'try' block can be followed by multiple 'except' blocks. This allows the program to handle different types of exceptions (like ValueError or IndexError) in different ways.`,
+        example: `try:
+    b = int("hello")
+except ValueError:
+    print("Invalid conversion")
+except IndexError:
+    print("Invalid index")`,
+        tags: ["exceptions", "error handling", "multiple exceptions"],
+        difficulty: "beginner"
+    },
+    {
+        id: "python-else-finally",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "else / finally",
+        desc: `Optional blocks in exception handling. The 'else' block runs ONLY if no exception occurred in the 'try' block. The 'finally' block ALWAYS runs at the end, regardless of whether an exception occurred or not.`,
+        example: `try:
+    result = 10 / 2
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+else:
+    print("Division successful!")
+finally:
+    print("Execution completed")`,
+        tags: ["exceptions", "else", "finally"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "python-raise",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "raise",
+        desc: `The 'raise' keyword is used to intentionally trigger an exception when a specific condition is met. You can define a custom error message to explain why the error was raised.`,
+        example: `if age < 0:
+    raise ValueError("Negative age is not allowed")`,
+        tags: ["exceptions", "raise", "custom errors"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "ex-basic-try-except",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "Exercise: Basic Try-Except",
+        desc: `Write code that attempts to divide two numbers. Handle the case when division by zero occurs.`,
+        example: `try:
+    result = 9 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")`,
+        tags: ["exercise", "try-except"],
+        difficulty: "beginner"
+    },
+    {
+        id: "ex-multiple-exceptions",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "Exercise: Multiple Exception Types",
+        desc: `Write code that converts a user input (represented by variable 'a') to an integer, and accesses an element from a list 'e' using that integer as an index. Handle both ValueError (invalid conversion) and IndexError (invalid index).`,
+        example: `a = "hello"
+e = [1, 2, 3, 4, 5, 6]
+try:
+    b = int(a)
+    c = e[b]
+    print(c)
+except ValueError:
+    print("value error")
+except IndexError:
+    print("index error")`,
+        tags: ["exercise", "multiple exceptions"],
+        difficulty: "beginner"
+    },
+    {
+        id: "ex-raising-exceptions",
+        chap: "lab5b",
+        chapTitle: "Lab 05b: Exception Handling Basics",
+        func: "Exercise: Raising Exceptions",
+        desc: `Write a function \`validate_age(age)\` that raises a ValueError if age is negative, raises a ValueError if age is greater than 150, and returns True otherwise.`,
+        example: `def validate_age(age):
+    if age < 0:
+        raise ValueError("negative age is not allowed")
+    elif age > 150:
+        raise ValueError("oldest person alive has 116 years old btw")
+    return True`,
+        tags: ["exercise", "raise"],
+        difficulty: "intermediate"
+    },
     {
         id: "float_cast",
         chap: "lab1",
