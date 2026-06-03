@@ -827,6 +827,139 @@ const definitionDb = [
         difficulty: "beginner"
     },
 
+
+        // --- MORE: LabWork NumPy — Wind Statistics in Algeria (continuation) ---
+    {
+        id: "np-boolean-mask",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Boolean Masks",
+        desc: `Filters rows or elements using conditional logic. Use bitwise operators \`&\` (AND) and \`|\` (OR) to combine conditions, enclosed in parentheses.`,
+        example: `summer_mask = (dates[:, 1] >= 6) & (dates[:, 1] <= 9)
+summer_speeds = speeds[summer_mask]`,
+        tags: ["numpy", "filtering", "boolean logic"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "np-unique",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "np.unique()",
+        desc: `Finds the unique elements of an array. If \`return_counts=True\` is passed, it also returns the frequency of each unique value.`,
+        example: `unique_idx, counts = np.unique(windiest_each_day, return_counts=True)`,
+        tags: ["numpy", "unique", "counting"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "np-reshape",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "arr.reshape()",
+        desc: `Gives a new shape to an array without changing its data. Useful for converting 1D/2D arrays into 3D chunks (e.g., grouping daily data into weeks).`,
+        example: `weekly = first_year.reshape(52, 7, 12) # 52 weeks, 7 days, 12 stations`,
+        tags: ["numpy", "reshape", "dimensions"],
+        difficulty: "advanced"
+    },
+    {
+        id: "ex-numpy-load",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Loading and Exploring the Dataset",
+        desc: `Load the file \`algeria_wind.data\` into a NumPy array. Separate it into two arrays: \`dates\` (first 3 columns) and \`speeds\` (remaining 12 columns).`,
+        example: `import numpy as np
+
+wind_data = np.loadtxt('algeria_wind.data')
+dates = wind_data[:, :3]
+speeds = wind_data[:, 3:]
+print(dates.shape, speeds.shape)`,
+        tags: ["exercise", "io", "slicing"],
+        difficulty: "beginner"
+    },
+    {
+        id: "ex-numpy-global-stats",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Global Summary Statistics",
+        desc: `Using only the \`speeds\` array, compute a single scalar for the global minimum, maximum, mean, and standard deviation over the entire 18‑year period.`,
+        example: `global_min = speeds.min()
+global_max = speeds.max()
+global_mean = speeds.mean()
+global_std = speeds.std()`,
+        tags: ["exercise", "aggregation", "statistics"],
+        difficulty: "beginner"
+    },
+    {
+        id: "ex-numpy-stats-per-station",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Statistics per Station (Column-wise)",
+        desc: `Compute the minimum, maximum, mean, and standard deviation separately for each of the 12 stations. Ensure you collapse the correct axis.`,
+        example: `min_per_station = speeds.min(axis=0)
+max_per_station = speeds.max(axis=0)
+mean_per_station = speeds.mean(axis=0)
+std_per_station = speeds.std(axis=0)`,
+        tags: ["exercise", "axis", "aggregation"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "ex-numpy-stats-per-day",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Statistics per Day (Row-wise)",
+        desc: `Compute the aggregation statistics across all 12 stations for each individual day. Your resulting arrays should have a length of 6574.`,
+        example: `min_per_day = speeds.min(axis=1)
+max_per_day = speeds.max(axis=1)
+mean_per_day = speeds.mean(axis=1)
+std_per_day = speeds.std(axis=1)`,
+        tags: ["exercise", "axis", "aggregation"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "ex-numpy-windiest-station",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Windiest Station per Day",
+        desc: `Find the column index of the station that recorded the highest wind speed for each of the 6574 days.`,
+        example: `windiest_each_day = np.argmax(speeds, axis=1)`,
+        tags: ["exercise", "argmax"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "ex-numpy-record-date",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Date of the National Wind Speed Record",
+        desc: `Find the single highest wind speed in the entire dataset, its flat position, and convert it to a row and column index to look up the exact date and station.`,
+        example: `record_speed = speeds.max()
+record_row, record_col = np.unravel_index(speeds.argmax(), speeds.shape)
+record_date = dates[record_row]`,
+        tags: ["exercise", "unravel_index", "search"],
+        difficulty: "advanced"
+    },
+    {
+        id: "ex-numpy-boolean-mask",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Exercise: Mean Summer Wind Speed",
+        desc: `Build a boolean mask to filter rows corresponding to summer months (months 6, 7, 8, 9). Then, extract these rows and calculate the mean summer wind speed for each station.`,
+        example: `summer_mask = (dates[:, 1] >= 6) & (dates[:, 1] <= 9)
+summer_speeds = speeds[summer_mask]
+summer_mean = summer_speeds.mean(axis=0)`,
+        tags: ["exercise", "boolean mask", "filtering"],
+        difficulty: "intermediate"
+    },
+    {
+        id: "ex-numpy-weekly-reshape",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        func: "Bonus Exercise: Weekly Statistics (No Loop)",
+        desc: `Compute the national mean wind speed for each of the first 52 weeks. Take the first 364 days, reshape the array to (52 weeks, 7 days, 12 stations), and collapse both the day and station axes.`,
+        example: `first_year = speeds[:364]
+weekly = first_year.reshape(52, 7, 12)
+weekly_mean = weekly.mean(axis=(1, 2))`,
+        tags: ["exercise", "reshape", "advanced"],
+        difficulty: "advanced"
+    },
         // --- NEW: Lab 05: Matplotlib ---
     {
         id: "plt-plot",
@@ -2909,5 +3042,119 @@ M = sp.Matrix([[2, 1],
 
 # Your code here`,
         expected: "3\n4\n1/3"
+    },
+        // --- Wind Statistics Practice ---
+    {
+        id: "p_wind_1_load",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        title: "1. Load & Inspect Synthetic Data",
+        badge: "Wind Lab",
+        instructions: `<p>The following starter code creates a small synthetic dataset with <strong>10 days</strong> of wind measurements for <strong>3 stations</strong>. The data array has columns: year, month, day, speed1, speed2, speed3. Complete the code to:</p>
+<ol>
+  <li>Separate the dates (first 3 columns) and speeds (remaining columns).</li>
+  <li>Print the <strong>shape</strong> and <strong>data type</strong> of the speeds array on separate lines.</li>
+</ol>`,
+        starter: `import numpy as np
+np.random.seed(42)
+# Synthetic data: 10 rows, 6 columns (year, month, day, s1, s2, s3)
+data = np.zeros((10, 6))
+data[:, 0] = 2020
+data[:, 1] = np.arange(1, 11)
+data[:, 2] = 15
+data[:, 3:] = np.random.uniform(0, 30, (10, 3))
+
+# Your code here
+`,
+        expected: "(10, 3)\nfloat64"
+    },
+    {
+        id: "p_wind_2_global",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        title: "2. Global Statistics",
+        badge: "Wind Lab",
+        instructions: `<p>Using the same dataset as above (provided in the starter code), compute the following <strong>global</strong> statistics of all wind speeds (all stations, all days):</p>
+<ul>
+  <li>Minimum wind speed</li>
+  <li>Maximum wind speed</li>
+  <li>Mean wind speed (rounded to 2 decimals)</li>
+</ul>
+<p>Print each value on a separate line.</p>`,
+        starter: `import numpy as np
+np.random.seed(42)
+data = np.zeros((10, 6))
+data[:, 0] = 2020
+data[:, 1] = np.arange(1, 11)
+data[:, 2] = 15
+data[:, 3:] = np.random.uniform(0, 30, (10, 3))
+speeds = data[:, 3:]
+
+# Your code here
+`,
+        expected: "0.6443005083914907\n29.59906315085132\n14.85"
+    },
+    {
+        id: "p_wind_3_per_station",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        title: "3. Mean per Station (Column-wise)",
+        badge: "Wind Lab",
+        instructions: `<p>Using the same speeds array (10 days × 3 stations), calculate the <strong>mean wind speed for each station</strong> (i.e., average over all 10 days). Print the resulting array on a single line.</p>`,
+        starter: `import numpy as np
+np.random.seed(42)
+data = np.zeros((10, 6))
+data[:, 0] = 2020
+data[:, 1] = np.arange(1, 11)
+data[:, 2] = 15
+data[:, 3:] = np.random.uniform(0, 30, (10, 3))
+speeds = data[:, 3:]
+
+# Your code here
+`,
+        expected: "[12.59217798 15.57328162 16.38059164]"
+    },
+    {
+        id: "p_wind_4_argmax",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        title: "4. Windiest Station per Day",
+        badge: "Wind Lab",
+        instructions: `<p>For each day, find the <strong>index of the station</strong> (0, 1, or 2) that recorded the highest wind speed. Print the resulting array of indices on a single line.</p>
+<p>Use <code>np.argmax()</code> with the correct axis.</p>`,
+        starter: `import numpy as np
+np.random.seed(42)
+data = np.zeros((10, 6))
+data[:, 0] = 2020
+data[:, 1] = np.arange(1, 11)
+data[:, 2] = 15
+data[:, 3:] = np.random.uniform(0, 30, (10, 3))
+speeds = data[:, 3:]
+
+# Your code here
+`,
+        expected: "[2 0 2 1 0 2 2 1 1 0]"
+    },
+    {
+        id: "p_wind_5_summer_mask",
+        chap: "numpy-wind",
+        chapTitle: "LabWork NumPy — Wind Statistics in Algeria",
+        title: "5. Summer Wind Speed Filter",
+        badge: "Wind Lab",
+        instructions: `<p>Build a boolean mask to select only the days that fall in <strong>summer months (June–September)</strong>. The month is stored in column index 1 of the original data array (values 1 to 10).</p>
+<p>After applying the mask to the speeds array, print the <strong>mean wind speed</strong> of those summer days, rounded to 2 decimal places.</p>`,
+        starter: `import numpy as np
+np.random.seed(42)
+data = np.zeros((10, 6))
+data[:, 0] = 2020
+data[:, 1] = np.arange(1, 11)   # months 1 to 10
+data[:, 2] = 15
+data[:, 3:] = np.random.uniform(0, 30, (10, 3))
+speeds = data[:, 3:]
+dates = data[:, :3]
+
+# Your code here
+`,
+        expected: "16.74"
     }
 ];
